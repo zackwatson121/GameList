@@ -32,6 +32,15 @@ UI.prototype.showAlert = function(message, className){
     }, 3000);
 }
 
+// Delete Game
+UI.prototype.deleteGame = function(target) {
+    if(target.className === 'delete') {
+        target.parentElement.parentElement.remove();
+    }
+}
+
+
+// Add game
 UI.prototype.addGametoList = function(game){
     const list = document.getElementById('game-list');
     // Create tr element
@@ -55,7 +64,7 @@ UI.prototype.clearFields = function(){
     document.getElementById('release').value = '';
 }
 
-// Event Listeners
+// Event Listeners for add game
 document.getElementById('game-form').addEventListener('submit', 
 function(e){
     // Get form values
@@ -77,14 +86,22 @@ function(e){
         // Show success
         ui.showAlert('Game Added!', 'success');
 
+        // Clear Fields
         ui.clearFields();
     }
 
-    // Add game to list
-    ui.addGametoList(game);
-
-    // Clear Fields
-    ui.clearFields();
-
     e.preventDefault();
 });
+
+// Event Listener for delete
+document.getElementById('game-list').addEventListener
+('click', function(e){
+
+    const ui = new UI();
+
+    ui.deleteGame(e.target);
+
+    ui.showAlert('Game Removed!', 'success');
+
+    e.preventDefault
+})
